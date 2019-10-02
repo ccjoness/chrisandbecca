@@ -25,7 +25,7 @@ SECRET_KEY = '8=b00$u-l=x#imj@taoxauizc700id$usocvv8pia$9rmadf9x'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['chrisandbecca.com']
 
 
 # Application definition
@@ -124,3 +124,10 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static_root')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
+
+try:
+    import chrisandbecca.secrets
+except ImportError:
+    pass
+
+
