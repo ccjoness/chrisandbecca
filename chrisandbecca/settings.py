@@ -26,7 +26,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     'chrisandbecca.com',
-    'www.chrisandbecca.com'
+    'www.chrisandbecca.com',
+    'localhost'
 ]
 
 # Application definition
@@ -121,6 +122,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static_root')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 try:
     import chrisandbecca.secrets
