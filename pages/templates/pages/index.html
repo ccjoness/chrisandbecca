@@ -27,10 +27,10 @@
             <div class="content color0 span-3-75">
                 <h1 class="major">Chris & Becca<br/>
                     Get Married!</h1>
-                <p>Urna ut Aliquet, mus quis ante egestas eu at sit Natoque. Varius nulla aliquam, porta id augue ata
-                    massa, non blandit feugiat col erat morbi cep Euismod Sodales viverra. Curae fusce cubilia.</p>
+                <p>Becca Beddingfield and Chris Jones are getting married! We are excited share this day with you. </p>
+                <p>Click next for more information.</p>
                 <ul class="actions">
-                    <li><a href="#first" class="button primary color1 circle icon solid fa-angle-right">Next</a></li>
+                    <li><a href="#information" class="button primary color1 circle icon solid fa-angle-right">Next</a></li>
                 </ul>
             </div>
             <div class="image filtered span-1-75" data-position="25% 25%">
@@ -41,11 +41,10 @@
         <!-- Panel (Spotlight) -->
         <section class="panel spotlight medium right" id="first">
             <div class="content span-7">
-                <h2 class="major">Sed etiam aenean</h2>
-                <p>Mauris et ligula arcu. Proin dapibus convallis accumsan. Lorem maximus hendrerit orci, sit amet
-                    elementum massa hendrerit sed. Donec et ullamcorper ligula. Suspendisse amet potenti. Ut pretium
-                    libero eleifend euismod sed tristique. Quisque dictum magna risus, id ultricies justo sagittis
-                    vitae. Sed id odio tempor, porttitor elit amet, gravida hendrerit fringilla lorem ipsum dolor.</p>
+                <h2 class="major">Date and Location</h2>
+                <p>Our ceremony will begin at 3PM in Pringle Hall in Salem Oregon on April 4, 2020.</p>
+                <p><a href="https://www.google.com/maps/place/Pringle+Hall+Community+Center/@44.9339539,-123.0377387,15z/data=!4m2!3m1!1s0x0:0x765b3e4c31936c2e?sa=X&ved=2ahUKEwj10smfkv_kAhW1JzQIHZF-DIQQ_BIwCnoECBAQCA" target="_blank">606 Church St SE <br>
+                    Salem, OR 97301</a></p>
             </div>
             <div class="image filtered tinted" data-position="top left">
                 <img src="{% static 'images/blue-sky.jpg' %}"/>
@@ -55,25 +54,19 @@
         <!-- Panel -->
         <section class="panel color1">
             <div class="intro joined">
-                <h2 class="major">Amet lorem</h2>
-                <p>Sed vel nibh libero. Mauris et lorem pharetra massa lorem turpis congue pulvinar. Vivamus sed feugiat
-                    finibus. Duis amet bibendum amet sed. Duis mauris ex, dapibus sed ligula tempus volutpat magna
-                    etiam.</p>
+                <h2 class="major">How we met</h2>
+                <p>It was a dark and stormy evening. Becca was headed to destination nowhere. Chris, nerd agent of mirth, happened upon our damsel (who would rather not be called a damsel thank you very much). Performming the secred bow of his people with a deep flourish he said, "M'lady".</p>
+                <p>Becca having none of this challenged him to a duel. For hours they battled and yet grew no closer to the age old question, Picard or Sisco? </p>
             </div>
-            <div class="inner">
-                <ul class="grid-icons three connected">
-                    <li><span class="icon fa-gem"><span class="label">Lorem</span></span></li>
-                    <li><span class="icon solid fa-camera-retro"><span class="label">Ipsum</span></span></li>
-                    <li><span class="icon solid fa-cog"><span class="label">Dolor</span></span></li>
-                    <li><span class="icon solid fa-paper-plane"><span class="label">Sit</span></span></li>
-                    <li><span class="icon solid fa-chart-bar"><span class="label">Amet</span></span></li>
-                    <li><span class="icon solid fa-code"><span class="label">Nullam</span></span></li>
-                </ul>
+            <div class="intro joined">
+               <p>Having met their match, they agreed to a piece time settlement. They would agree to disagree until such
+                time as new and stronger captain would emerge.</p>
+                <p>J/K. They met online and are huge nerds.</p>
             </div>
         </section>
 
         <!-- Panel (Spotlight) -->
-        <section class="panel spotlight large left">
+        <section class="panel spotlight large left" id="information">
             <div class="content span-5">
                 <h2 class="major">Chris & Becca Get Married!</h2>
                 <p>We invite you to share our celebration!</p>
@@ -129,10 +122,10 @@
                    data-position="right">
                     <img src="{% static 'images/for_web/_thumbs/th_chris_and_becca_0010-min.jpg' %}"/></a>
 {#                <div id="gallery1">#}
-                    {% for i in images %}
-                        <a href="{{ i.image.url }}" class="image filtered span-2-5" data-position="center">
-                        <img src="{{ i.thumbnail.url }}"/></a>
-                    {% endfor %}
+{#                    {% for i in images %}#}
+{#                        <a href="{{ i.image.url }}" class="image filtered span-2-5" data-position="center">#}
+{#                        <img src="{{ i.thumbnail.url }}"/></a>#}
+{#                    {% endfor %}#}
 {#                </div>#}
             </div>
         </section>
