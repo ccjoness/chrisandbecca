@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE HTML>
-<html>
+<html lang="en">
 <head>
     <title>Chris & Becca</title>
     <meta charset="utf-8"/>
@@ -9,10 +9,6 @@
     <noscript>
         <link rel="stylesheet" href="{% static 'css/noscript.css' %}"/>
     </noscript>
-
-{#    <link rel="stylesheet" href="{% static 'js/unitegallery/css/unite-gallery.css' %}"/>#}
-
-
 </head>
 <body class="is-preload">
 
@@ -28,14 +24,75 @@
                 <h1 class="major">Chris & Becca<br/>
                     Get Married!</h1>
                 <p>Becca Beddingfield and Chris Jones are getting married! We are excited share this day with you. </p>
-{#                <p>Click next for more information.</p>#}
-{#                <ul class="actions">#}
-{#                    <li><a href="#information" class="button primary color1 circle icon solid fa-angle-right">Next</a></li>#}
-{#                </ul>#}
+                {#                <p>Click next for more information.</p>#}
+                {#                <ul class="actions">#}
+                {#                    <li><a href="#information" class="button primary color1 circle icon solid fa-angle-right">Next</a></li>#}
+                {#                </ul>#}
             </div>
             <div class="image filtered span-2-75" data-position="25% 25%">
                 <img src="{% static 'images/chris_becca001.jpg' %}"/>
             </div>
+        </section>
+
+        <!-- Panel -->
+        <section class="panel color1">
+            <div class="inner columns aligned">
+                <div class="span-2-75 sp">
+                    <h2 class="major">RSVP</h2>
+                    <form action="#" method="post" enctype="multipart/form-data">
+                        <div class="fields">
+                            <div class="field half">
+                                <input type="text" name="name" id="name" placeholder="Name"/>
+                            </div>
+                            <div class="field half">
+                                <input type="email" name="email" id="email" placeholder="Email"/>
+                            </div>
+                            <div class="field">
+                                <select name="attendees" id="attendees">
+                                    <option value="-">How many attendees in your party?</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                    <option value="13">13</option>
+                                    <option value="14">14</option>
+                                    <option value="15">15</option>
+                                </select>
+                            </div>
+                            <div class="field">
+                                Please enter the number of people next to the food choice.
+                            </div>
+                            <div class="field third">
+                                <label for="pork">Bacon Wrapped Pork</label>
+                                {#                                <input class="food_choice" type="text" name="pork" id="pork" disabled>#}
+                                <select class='food_choice' name="pork" id="pork" disabled>
+                                    <option value="--">--</option>
+                                </select>
+                            </div>
+                            {#                            <div class="field third">#}
+                            {#                                <label for="chicken">Hazelnut Chicken</label>#}
+                            {#                                <input class="food_choice" type="text" name="chicken" id="chicken" disabled>#}
+                            {#                            </div>#}
+                            {#                                <div class="field third">#}
+                            {#                                <label for="vegetarian">Vegetarian</label>#}
+                            {#                                <input class="food_choice" type="text" name="vegetarian" id="vegetarian" disabled>#}
+                            {#                            </div>#}
+                        </div>
+                        <ul class="actions">
+                            <li><input type="submit" value="Send Message" class="button primary"/></li>
+                        </ul>
+                    </form>
+                </div>
+            </div>
+
         </section>
 
         <!-- Panel (Spotlight) -->
@@ -43,8 +100,10 @@
             <div class="content span-9">
                 <h2 class="major">Date and Location</h2>
                 <p>Our ceremony will begin at 3PM in Pringle Hall in Salem Oregon on April 4, 2020.</p>
-                <p><a href="https://www.google.com/maps/place/Pringle+Hall+Community+Center/@44.9339539,-123.0377387,15z/data=!4m2!3m1!1s0x0:0x765b3e4c31936c2e?sa=X&ved=2ahUKEwj10smfkv_kAhW1JzQIHZF-DIQQ_BIwCnoECBAQCA" target="_blank">606 Church St SE <br>
-                    Salem, OR 97301</a></p>
+                <p>
+                    <a href="https://www.google.com/maps/place/Pringle+Hall+Community+Center/@44.9339539,-123.0377387,15z/data=!4m2!3m1!1s0x0:0x765b3e4c31936c2e?sa=X&ved=2ahUKEwj10smfkv_kAhW1JzQIHZF-DIQQ_BIwCnoECBAQCA"
+                       target="_blank">606 Church St SE <br>
+                        Salem, OR 97301</a></p>
             </div>
             <div class="image filtered tinted" data-position="top left">
                 <img src="{% static 'images/blue-sky.jpg' %}"/>
@@ -55,15 +114,20 @@
         <section class="panel color1">
             <div class="inner columns aligned">
                 <div class="span-1-75">
-                <h2 class="major">How we met</h2>
-                <p>It was a dark and stormy evening. Becca was headed to Destination Nowhere. Chris, nerd agent of mirth, happened upon our damsel (who would rather not be called a damsel thank you very much). </p>
-                <p>Performing the sacred bow of his people with a deep flourish, he said, "M'lady." Becca having none of this challenged him to a duel. For hours they battled and yet grew no closer to the age-old question, Picard or Sisco? </p>
-            </div>
+                    <h2 class="major">How we met</h2>
+                    <p>It was a dark and stormy evening. Becca was headed to Destination Nowhere. Chris, nerd agent of
+                        mirth, happened upon our damsel (who would rather not be called a damsel thank you very
+                        much). </p>
+                    <p>Performing the sacred bow of his people with a deep flourish, he said, "M'lady." Becca having
+                        none of this challenged him to a duel. For hours they battled and yet grew no closer to the
+                        age-old question, Picard or Sisco? </p>
+                </div>
                 <div class="span-1-75">
                     <h2 class="major">&nbsp;</h2>
-                <p>Having met their match, Chris and Becca agreed to a peacetime settlement. They would agree to disagree until such time as a new and stronger captain would emerge.</p>
-                <p>J/K. They met online and are huge nerds.</p>
-            </div>
+                    <p>Having met their match, Chris and Becca agreed to a peacetime settlement. They would agree to
+                        disagree until such time as a new and stronger captain would emerge.</p>
+                    <p>J/K. They met online and are huge nerds.</p>
+                </div>
             </div>
 
         </section>
@@ -123,12 +187,12 @@
                 <a href="{% static 'images/for_web/chris_and_becca_0010-min.jpg' %}" class="image filtered span-2-5"
                    data-position="right">
                     <img src="{% static 'images/for_web/_thumbs/th_chris_and_becca_0010-min.jpg' %}"/></a>
-{#                <div id="gallery1">#}
-{#                    {% for i in images %}#}
-{#                        <a href="{{ i.image.url }}" class="image filtered span-2-5" data-position="center">#}
-{#                        <img src="{{ i.thumbnail.url }}"/></a>#}
-{#                    {% endfor %}#}
-{#                </div>#}
+                {#                <div id="gallery1">#}
+                {#                    {% for i in images %}#}
+                {#                        <a href="{{ i.image.url }}" class="image filtered span-2-5" data-position="center">#}
+                {#                        <img src="{{ i.thumbnail.url }}"/></a>#}
+                {#                    {% endfor %}#}
+                {#                </div>#}
             </div>
         </section>
 
@@ -184,18 +248,33 @@
 <script src="{% static 'js/browser.min.js' %}"></script>
 <script src="{% static 'js/breakpoints.min.js' %}"></script>
 <script src="{% static 'js/main.js' %}"></script>
-{#<script src="{% static 'js/unitegallery/js/unitegallery.js' %}"></script>#}
-{#<script src="{% static 'js/unitegallery/themes/tiles/ug-theme-tiles.js' %}"></script>#}
+EEn
 
 <script type="text/javascript">
+    let people_num;
 
-        {#jQuery(document).ready(function(){#}
-		{#		jQuery("#gallery1").unitegallery({#}
-        {#            gallery_theme: "tiles",#}
-        {#            theme_appearance_order: 'shuffle',#}
-        {#            gallery_width:"100%",#}
-        {#        });#}
-		{#	});#}
+    function check_people() {
+        if (people_num > 0) {
+            $('.food_choice').prop("disabled", false);
+        } else {
+            $('.food_choice').prop("disabled", true).val('');
+
+        }
+    }
+
+    function set_choice_numbers() {
+        let pork = $('#pork');
+        pork.html(`<option value="--">--</option>`)
+        for (let i = 0; i < people_num; i++) {
+            pork.append(`<option value="${i + 1}">${i + 1}</option>`)
+        }
+    }
+
+    $('#attendees').change(function (e) {
+        people_num = this.value;
+        check_people();
+        set_choice_numbers();
+    })
 
 
 </script>
