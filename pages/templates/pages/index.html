@@ -10,6 +10,7 @@
         .error {
             border: red solid 2px !important;
         }
+
         .error_text {
             color: #ffda22;
         }
@@ -91,11 +92,11 @@
                                 <select class='food_choice' name="rsvp_chicken" id="rsvp_chicken" disabled>
                                     <option value="0">--</option>
                                 </select>
-{#                                <input class="food_choice" type="text" name="chicken" id="chicken" disabled>#}
+                                {#                                <input class="food_choice" type="text" name="chicken" id="chicken" disabled>#}
                             </div>
                             <div class="field third">
                                 <label for="rsvp_vegetarian">Vegetarian</label>
-{#                                <input class="food_choice" type="text" name="vegetarian" id="vegetarian" disabled>#}
+                                {#                                <input class="food_choice" type="text" name="vegetarian" id="vegetarian" disabled>#}
                                 <select class='food_choice' name="rsvp_vegetarian" id="rsvp_vegetarian" disabled>
                                     <option value="0">--</option>
                                 </select>
@@ -267,9 +268,42 @@
 EEn
 
 <script type="text/javascript">
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    var csrftoken = getCookie('csrftoken');
+
+
+    function csrfSafeMethod(method) {
+        // these HTTP methods do not require CSRF protection
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+
+    $.ajaxSetup({
+        beforeSend: function (xhr, settings) {
+            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            }
+        }
+    });
+
     let people_num;
 
     let inputs = $('.food_choice');
+
     function check_people() {
         if (people_num > 0) {
             inputs.prop("disabled", false);
@@ -281,7 +315,7 @@ EEn
 
     function set_choice_numbers() {
         inputs.html(`<option value="0">--</option>`);
-        $.each(inputs, function(index, val) {
+        $.each(inputs, function (index, val) {
             for (let i = 0; i < people_num; i++) {
                 $(val).append(`<option value="${i + 1}">${i + 1}</option>`)
             }
@@ -294,8 +328,7 @@ EEn
         set_choice_numbers();
     });
 
-    // $('#rsvp').submit(function (e) {
-    function check_rsvp_form () {
+    $('#rsvp').submit(function (e) {
         e.preventDefault();
         let name = false;
         let email = false;
@@ -303,11 +336,11 @@ EEn
         let food = false;
         let total = 0;
 
-        $.each(inputs, function(index, val) {
+        $.each(inputs, function (index, val) {
             total += parseInt($(val).val(), 10);
         });
 
-        if ($('#rsvp_name').val().length <= 0){
+        if ($('#rsvp_name').val().length <= 0) {
             $('#rsvp_name').addClass('error');
             name = false;
         } else {
@@ -332,16 +365,16 @@ EEn
         }
 
         if (($('#rsvp_pork').val() === '--' && $('#rsvp_chicken').val() === '--' && $('#rsvp_vegetarian').val() === '--') || total > people_num || total < people_num) {
-             inputs.addClass('error');
-             if (total > people_num) {
-                 $('#field_error').html('You have chosen more food then the number of people in your party. Please check your food reservations. Thanks!')
-                     .addClass('error_text');
-                 food = false;
-             } else if (total < people_num) {
-                 $('#field_error').html('You have chosen less food then the number of people in your party. Please check your food reservations. Thanks!')
-                     .addClass('error_text');
-                 food = false;
-             }
+            inputs.addClass('error');
+            if (total > people_num) {
+                $('#field_error').html('You have chosen more food then the number of people in your party. Please check your food reservations. Thanks!')
+                    .addClass('error_text');
+                food = false;
+            } else if (total < people_num) {
+                $('#field_error').html('You have chosen less food then the number of people in your party. Please check your food reservations. Thanks!')
+                    .addClass('error_text');
+                food = false;
+            }
         } else {
             inputs.removeClass('error');
             $('#field_error').html('Please enter the number of people next to the food choice.')
@@ -349,12 +382,22 @@ EEn
             food = true;
         }
         if (name && email && attendees && food) {
-            console.log('go');
-            $(this).off('submit', check_rsvp_form);
-            $(this).submit();
+            let form = $(this);
+            $.ajax({
+                url: `{% url 'rsvp_view' %}`,
+                type: 'post',
+                data: form.serialize(),
+                success: function (resp) {
+                    if (resp.message === 'success') {
+                         $('#field_error')
+                             .html('Thank you!')
+                            .addClass('error_text');
+                    }
+                }
+            })
+
         }
-    }
-    $('#rsvp').submit(check_rsvp_form)
+    })
 </script>
 </body>
 </html>

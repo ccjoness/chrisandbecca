@@ -28,7 +28,8 @@ def rsvp_view(request):
         rsvp.chicken = request.POST.get('rsvp_chicken')
         rsvp.vegetarian = request.POST.get('rsvp_vegetarian')
         rsvp.save()
-    return HttpResponseRedirect(reverse('home'))
+        return JsonResponse({'message': 'success'})
+    return JsonResponse({'message': 'fail'})
 
 
 def contact_view(request):
