@@ -6,6 +6,14 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
     <link rel="stylesheet" href="{% static 'css/main.css' %}"/>
+    <style>
+        .error {
+            border: red solid 2px !important;
+        }
+        .error_text {
+            color: #ffda22;
+        }
+    </style>
     <noscript>
         <link rel="stylesheet" href="{% static 'css/noscript.css' %}"/>
     </noscript>
@@ -39,16 +47,17 @@
             <div class="inner columns aligned">
                 <div class="span-2-75 sp">
                     <h2 class="major">RSVP</h2>
-                    <form action="#" method="post" enctype="multipart/form-data">
+                    <form id="rsvp" action="{% url 'rsvp_view' %}" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
                         <div class="fields">
                             <div class="field half">
-                                <input type="text" name="name" id="name" placeholder="Name"/>
+                                <input type="text" name="rsvp_name" id="rsvp_name" placeholder="Name"/>
                             </div>
                             <div class="field half">
-                                <input type="email" name="email" id="email" placeholder="Email"/>
+                                <input type="email" name="rsvp_email" id="rsvp_email" placeholder="Email"/>
                             </div>
                             <div class="field">
-                                <select name="attendees" id="attendees">
+                                <select name="rsvp_attendees" id="rsvp_attendees">
                                     <option value="-">How many attendees in your party?</option>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
@@ -67,24 +76,30 @@
                                     <option value="15">15</option>
                                 </select>
                             </div>
-                            <div class="field">
+                            <div class="field" id="field_error">
                                 Please enter the number of people next to the food choice.
                             </div>
                             <div class="field third">
-                                <label for="pork">Bacon Wrapped Pork</label>
+                                <label for="rsvp_pork">Bacon Wrapped Pork</label>
                                 {#                                <input class="food_choice" type="text" name="pork" id="pork" disabled>#}
-                                <select class='food_choice' name="pork" id="pork" disabled>
-                                    <option value="--">--</option>
+                                <select class='food_choice' name="rsvp_pork" id="rsvp_pork" disabled>
+                                    <option value="0">--</option>
                                 </select>
                             </div>
-                            {#                            <div class="field third">#}
-                            {#                                <label for="chicken">Hazelnut Chicken</label>#}
-                            {#                                <input class="food_choice" type="text" name="chicken" id="chicken" disabled>#}
-                            {#                            </div>#}
-                            {#                                <div class="field third">#}
-                            {#                                <label for="vegetarian">Vegetarian</label>#}
-                            {#                                <input class="food_choice" type="text" name="vegetarian" id="vegetarian" disabled>#}
-                            {#                            </div>#}
+                            <div class="field third">
+                                <label for="rsvp_chicken">Hazelnut Chicken</label>
+                                <select class='food_choice' name="rsvp_chicken" id="rsvp_chicken" disabled>
+                                    <option value="0">--</option>
+                                </select>
+{#                                <input class="food_choice" type="text" name="chicken" id="chicken" disabled>#}
+                            </div>
+                            <div class="field third">
+                                <label for="rsvp_vegetarian">Vegetarian</label>
+{#                                <input class="food_choice" type="text" name="vegetarian" id="vegetarian" disabled>#}
+                                <select class='food_choice' name="rsvp_vegetarian" id="rsvp_vegetarian" disabled>
+                                    <option value="0">--</option>
+                                </select>
+                            </div>
                         </div>
                         <ul class="actions">
                             <li><input type="submit" value="Send Message" class="button primary"/></li>
@@ -204,7 +219,8 @@
             </div>
             <div class="inner columns divided">
                 <div class="span-3-25">
-                    <form method="post" action="#">
+                    <form method="post" action="{% url 'contact_view' %}" enctype="multipart/form-data">
+                        {% csrf_token %}
                         <div class="fields">
                             <div class="field half">
                                 <label for="name">Name</label>
@@ -253,30 +269,92 @@ EEn
 <script type="text/javascript">
     let people_num;
 
+    let inputs = $('.food_choice');
     function check_people() {
         if (people_num > 0) {
-            $('.food_choice').prop("disabled", false);
+            inputs.prop("disabled", false);
         } else {
-            $('.food_choice').prop("disabled", true).val('');
+            inputs.prop("disabled", true).val('');
 
         }
     }
 
     function set_choice_numbers() {
-        let pork = $('#pork');
-        pork.html(`<option value="--">--</option>`)
-        for (let i = 0; i < people_num; i++) {
-            pork.append(`<option value="${i + 1}">${i + 1}</option>`)
-        }
+        inputs.html(`<option value="0">--</option>`);
+        $.each(inputs, function(index, val) {
+            for (let i = 0; i < people_num; i++) {
+                $(val).append(`<option value="${i + 1}">${i + 1}</option>`)
+            }
+        })
     }
 
-    $('#attendees').change(function (e) {
+    $('#rsvp_attendees').change(function (e) {
         people_num = this.value;
         check_people();
         set_choice_numbers();
-    })
+    });
 
+    // $('#rsvp').submit(function (e) {
+    function check_rsvp_form () {
+        e.preventDefault();
+        let name = false;
+        let email = false;
+        let attendees = false;
+        let food = false;
+        let total = 0;
 
+        $.each(inputs, function(index, val) {
+            total += parseInt($(val).val(), 10);
+        });
+
+        if ($('#rsvp_name').val().length <= 0){
+            $('#rsvp_name').addClass('error');
+            name = false;
+        } else {
+            $('#rsvp_name').removeClass('error');
+            name = true;
+        }
+
+        if ($('#rsvp_email').val().length <= 0) {
+            $('#rsvp_email').addClass('error');
+            email = false;
+        } else {
+            $('#rsvp_email').removeClass('error');
+            email = true;
+        }
+
+        if ($('#rsvp_attendees').val() === '-') {
+            $('#rsvp_attendees').addClass('error');
+            attendees = false;
+        } else {
+            $('#rsvp_attendees').removeClass('error');
+            attendees = true;
+        }
+
+        if (($('#rsvp_pork').val() === '--' && $('#rsvp_chicken').val() === '--' && $('#rsvp_vegetarian').val() === '--') || total > people_num || total < people_num) {
+             inputs.addClass('error');
+             if (total > people_num) {
+                 $('#field_error').html('You have chosen more food then the number of people in your party. Please check your food reservations. Thanks!')
+                     .addClass('error_text');
+                 food = false;
+             } else if (total < people_num) {
+                 $('#field_error').html('You have chosen less food then the number of people in your party. Please check your food reservations. Thanks!')
+                     .addClass('error_text');
+                 food = false;
+             }
+        } else {
+            inputs.removeClass('error');
+            $('#field_error').html('Please enter the number of people next to the food choice.')
+                .removeClass('error_text');
+            food = true;
+        }
+        if (name && email && attendees && food) {
+            console.log('go');
+            $(this).off('submit', check_rsvp_form);
+            $(this).submit();
+        }
+    }
+    $('#rsvp').submit(check_rsvp_form)
 </script>
 </body>
 </html>

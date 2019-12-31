@@ -3,7 +3,7 @@ from PIL import Image
 from django.core.files.base import ContentFile
 from io import BytesIO
 import os
-
+from django.utils import timezone
 
 def image_upload_handler(instance, filename):
     return 'gallery/full/{}'.format(filename)
@@ -57,3 +57,25 @@ class GalleryImage(models.Model):
         temp_thumb.close()
 
         return True
+
+
+class RSVP(models.Model):
+    name = models.CharField(max_length=255)
+    email = models.EmailField()
+    attendees = models.PositiveIntegerField()
+    pork = models.PositiveIntegerField()
+    chicken = models.PositiveIntegerField()
+    vegetarian = models.PositiveIntegerField()
+
+    def __str__(self):
+        return self.name
+
+
+class Contact(models.Model):
+    name = models.CharField(max_length=255)
+    email = models.EmailField()
+    message = models.TextField()
+    timestamp = models.DateTimeField(default=timezone.now, blank=True)
+
+    def __str__(self):
+        return self.name

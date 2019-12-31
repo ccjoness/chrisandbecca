@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #eq > div {
+            width: 300px;
+        }
+
+        #eq > div .slider {
+            width: 200px;
+            float: left;
+        }
+
+        #eq > div > span {
+            float: right;
+        }
+    </style>
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/themes/base/jquery-ui.css">
+</head>
+<body>
+
+
+<div class="field">
+    <select name="attendees" id="attendees">
+        <option value="0">How many attendees in your party?</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+        <option value="11">11</option>
+        <option value="12">12</option>
+        <option value="13">13</option>
+        <option value="14">14</option>
+        <option value="15">15</option>
+    </select>
+</div>
+
+<div id="eq">
+    <div style="margin: 15px;" id="test1">Bacon Wrapped Pork</div>
+    <br/>
+    <div class="slider"></div>
+    <span class="spent">0</span>
+
+    <div style="margin: 15px;" id="test2">Hazelnut Chicken</div>
+    <br/>
+    <div class="slider"></div>
+    <span class="spent">0</span>
+
+    <div style="margin: 15px;" id="test3">Vegetarian</div>
+    <br/>
+    <div class="slider"></div>
+    <span class="spent">0</span>
+
+</div>
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.js"></script>
+<script>
+    let
+        maxValueSlider = 0,
+        maxValueTotal = 0,
+        $sliders = $("#eq .slider"),
+        valueSliders = [],
+        $displaySpentTotal = $('#spent');
+
+    function arraySum(arr) {
+        let sum = 0, i;
+        for (i in arr) sum += arr[i];
+        return sum;
+    }
+
+    $('#attendees').change(function (e) {
+        maxValueSlider = this.value;
+        maxValueTotal = this.value;
+        $('.spent').html(0)
+        set_sliders()
+    });
+    function set_sliders() {
+        $sliders
+        .each(
+            function (i, slider) {
+                let
+                    $slider = $(slider),
+                    $spent = $slider.next('.spent');
+                valueSliders[i] = 0;
+                $slider
+                    .slider(
+                        {
+                            range: 'min',
+                            value: 0,
+                            min: 0,
+                            max: maxValueSlider,
+                            step: 1,
+                            animate: true,
+                            orientation: "horizontal",
+                            slide:
+                                function (event, ui) {
+                                    let
+                                        sumRemainder = arraySum(valueSliders) - valueSliders[i],
+                                        adjustedValue = Math.min(maxValueTotal - sumRemainder, ui.value);
+                                    valueSliders[i] = adjustedValue;
+                                    // display the current total
+                                    $displaySpentTotal.text(sumRemainder + adjustedValue);
+                                    // display the current value
+                                    $spent.text(adjustedValue);
+                                    // set slider to adjusted value
+                                    $slider.slider('value', adjustedValue);
+
+                                    // stop sliding (return false) if value actually required adjustment
+                                    return adjustedValue == ui.value;
+                                }
+                        }
+                    );
+            }
+        );
+    }
+
+set_sliders()
+
+</script>
+</body>
+</html>

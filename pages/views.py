@@ -1,5 +1,6 @@
 from django.shortcuts import render, HttpResponseRedirect, reverse
-from pages.models import GalleryImage
+from django.http import JsonResponse
+from pages.models import GalleryImage, RSVP, Contact
 
 
 def home(request):
@@ -14,4 +15,27 @@ def upload_photos(request):
             new_photo = GalleryImage()
             new_photo.image = f
             new_photo.save()
+    return HttpResponseRedirect(reverse('home'))
+
+
+def rsvp_view(request):
+    if request.method == 'POST':
+        rsvp = RSVP()
+        rsvp.name = request.POST.get('rsvp_name')
+        rsvp.email = request.POST.get('rsvp_email')
+        rsvp.attendees = request.POST.get('rsvp_attendees')
+        rsvp.pork = request.POST.get('rsvp_pork')
+        rsvp.chicken = request.POST.get('rsvp_chicken')
+        rsvp.vegetarian = request.POST.get('rsvp_vegetarian')
+        rsvp.save()
+    return HttpResponseRedirect(reverse('home'))
+
+
+def contact_view(request):
+    if request.method == 'POST':
+        contact = Contact()
+        contact.name = request.POST.get('name')
+        contact.email = request.POST.get('email')
+        contact.message = request.POST.get('message')
+        contact.save()
     return HttpResponseRedirect(reverse('home'))
