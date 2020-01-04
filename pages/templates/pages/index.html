@@ -103,7 +103,7 @@
                             </div>
                         </div>
                         <ul class="actions">
-                            <li><input type="submit" value="Send Message" class="button primary"/></li>
+                            <li><input id="rsvp_submit" type="submit" value="RSVP" class="button primary"/></li>
                         </ul>
                     </form>
                 </div>
@@ -115,7 +115,7 @@
         <section class="panel spotlight medium right" id="first">
             <div class="content span-9">
                 <h2 class="major">Date and Location</h2>
-                <p>Our ceremony will begin at 3PM in Pringle Hall in Salem Oregon on April 4, 2020.</p>
+                <p>Our ceremony will begin 3:30 PM at Pringle Hall in Salem Oregon on April 4, 2020.</p>
                 <p>
                     <a href="https://www.google.com/maps/place/Pringle+Hall+Community+Center/@44.9339539,-123.0377387,15z/data=!4m2!3m1!1s0x0:0x765b3e4c31936c2e?sa=X&ved=2ahUKEwj10smfkv_kAhW1JzQIHZF-DIQQ_BIwCnoECBAQCA"
                        target="_blank">606 Church St SE <br>
@@ -220,8 +220,13 @@
             </div>
             <div class="inner columns divided">
                 <div class="span-3-25">
-                    <form method="post" action="{% url 'contact_view' %}" enctype="multipart/form-data">
+                    <form id="contactForm" method="post" action="{% url 'contact_view' %}" enctype="multipart/form-data">
                         {% csrf_token %}
+                        <div class="g-recaptcha"
+                             data-sitekey="yourKey"
+                             data-callback="onSubmit"
+                             data-size="invisible">
+                        </div>
                         <div class="fields">
                             <div class="field half">
                                 <label for="name">Name</label>
@@ -265,7 +270,7 @@
 <script src="{% static 'js/browser.min.js' %}"></script>
 <script src="{% static 'js/breakpoints.min.js' %}"></script>
 <script src="{% static 'js/main.js' %}"></script>
-EEn
+<script src="https://www.google.com/recaptcha/api.js?onload=onLoad&render=explicit" async defer />
 
 <script type="text/javascript">
     function getCookie(name) {
@@ -392,12 +397,13 @@ EEn
                          $('#field_error')
                              .html('Thank you!')
                             .addClass('error_text');
+                         $('#rsvp_submit').val('Thanks!').prop('disabled', true);
                     }
                 }
             })
 
         }
-    })
+    });
 </script>
 </body>
 </html>
