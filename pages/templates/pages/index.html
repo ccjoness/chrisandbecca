@@ -103,7 +103,7 @@
                             </div>
                         </div>
                         <ul class="actions">
-                            <li><input type="submit" value="Send Message" class="button primary"/></li>
+                            <li><input type="submit" id="rsvp_submit" value="RSVP" class="button primary"/></li>
                         </ul>
                     </form>
                 </div>
@@ -270,7 +270,6 @@
 <script src="{% static 'js/browser.min.js' %}"></script>
 <script src="{% static 'js/breakpoints.min.js' %}"></script>
 <script src="{% static 'js/main.js' %}"></script>
-<script src="https://www.google.com/recaptcha/api.js?onload=onLoad&render=explicit" async defer />
 
 <script type="text/javascript">
     function getCookie(name) {
@@ -395,8 +394,9 @@
                 success: function (resp) {
                     if (resp.message === 'success') {
                          $('#field_error')
-                             .html('Thank you!')
+                             .html('Your RSVP has been submitted. Thank you!')
                             .addClass('error_text');
+                         $('#rsvp_submit').val('Thank You!').prop('disabled', true);
                     }
                 }
             })
