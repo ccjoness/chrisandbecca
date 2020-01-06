@@ -1,6 +1,8 @@
 from django.shortcuts import render, HttpResponseRedirect, reverse
 from django.http import JsonResponse
 from pages.models import GalleryImage, RSVP, Contact
+from django.core.mail import EmailMessage
+from django.template.loader import render_to_string
 
 
 def home(request):
@@ -28,6 +30,18 @@ def rsvp_view(request):
         rsvp.chicken = request.POST.get('rsvp_chicken')
         rsvp.vegetarian = request.POST.get('rsvp_vegetarian')
         rsvp.save()
+
+        email_html = render_to_string('mailer.html', {'username': rsvp.name})
+        email = EmailMessage(
+            subject='Thank you for your RSVP',
+            body=email_html,
+            from_email='mail@chrisandbecca.com',
+            to=[rsvp.email],
+            reply_to=['mail@chrisandbecca.com'],
+            headers={'Content-Type': 'text/html'},
+        )
+        email.content_subtype = "html"
+        email.send()
         return JsonResponse({'message': 'success'})
     return JsonResponse({'message': 'fail'})
 
@@ -39,4 +53,15 @@ def contact_view(request):
         contact.email = request.POST.get('email')
         contact.message = request.POST.get('message')
         contact.save()
+
+        email = EmailMessage(
+            subject='New Message from ChrisAndBecca.com',
+            body=contact.message,
+            from_email='mail@chrisandbecca.com',
+            to=['chris.charles.jones@gmail.com'],
+            reply_to=[contact.email],
+            headers={'Content-Type': 'text/plain'},
+        )
+        email.send()
+
     return HttpResponseRedirect(reverse('home'))
