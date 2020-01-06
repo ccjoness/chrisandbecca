@@ -14,6 +14,78 @@
         .error_text {
             color: #ffda22;
         }
+
+        #rsvp_submit {
+            letter-spacing: 0;
+            width: 100px;
+            height: 50px;
+            background: transparent;
+            border-radius: 10px;
+            will-change: transform;
+            transition: all .2s ease;
+            border: 2px solid #9d88a9;
+            cursor: pointer;
+            color: #ffffff !important;
+            font-size: 16px;
+            color: #FF5126;
+            outline: none;
+            text-align: center;
+            padding: 0 !important;
+        }
+
+        #rsvp_submit:hover {
+            background: #ffffff;
+            color: #000000 !important;
+        }
+
+        #rsvp_submit:active {
+            font-size: 15px;
+            -webkit-transform: translateY(1px);
+            transform: translateY(1px);
+        }
+
+        #rsvp_submit.active {
+            font-size: 0;
+            border-radius: 25px;
+            width: 50px;
+            background: transparent;
+        }
+
+        #rsvp_submit.loader {
+            border-right: 2px solid #ffffff;
+            -webkit-animation: loader .4s linear infinite;
+            animation: loader .4s linear infinite;
+        }
+
+        #rsvp_submit.success {
+            background: #3BB873;
+            border-color: #3BB873;
+            font-size: 14px;
+            color: #ffffff;
+            opacity: 1;
+        }
+
+        @-webkit-keyframes loader {
+            0% {
+                -webkit-transform: rotateZ(0);
+                transform: rotateZ(0);
+            }
+            100% {
+                -webkit-transform: rotateZ(360deg);
+                transform: rotateZ(360deg);
+            }
+        }
+
+        @keyframes loader {
+            0% {
+                -webkit-transform: rotateZ(0);
+                transform: rotateZ(0);
+            }
+            100% {
+                -webkit-transform: rotateZ(360deg);
+                transform: rotateZ(360deg);
+            }
+        }
     </style>
     <noscript>
         <link rel="stylesheet" href="{% static 'css/noscript.css' %}"/>
@@ -220,7 +292,8 @@
             </div>
             <div class="inner columns divided">
                 <div class="span-3-25">
-                    <form id="contactForm" method="post" action="{% url 'contact_view' %}" enctype="multipart/form-data">
+                    <form id="contactForm" method="post" action="{% url 'contact_view' %}"
+                          enctype="multipart/form-data">
                         {% csrf_token %}
                         <div class="fields">
                             <div class="field half">
@@ -237,8 +310,12 @@
                             </div>
                         </div>
                         <ul class="actions">
-{#                            <li><input type="submit" value="Send Message" class="button primary"/></li>#}
-                            <li><button class="g-recaptcha" data-sitekey="6LcvncwUAAAAADal6j2WUW7DA5aFU-UTCjrjLban" data-callback="captchaSubmit">Submit</button></li>
+                            {#                            <li><input type="submit" value="Send Message" class="button primary"/></li>#}
+                            <li>
+                                <button class="g-recaptcha" data-sitekey="6LcvncwUAAAAADal6j2WUW7DA5aFU-UTCjrjLban"
+                                        data-callback="captchaSubmit">Submit
+                                </button>
+                            </li>
                         </ul>
                     </form>
                 </div>
@@ -330,6 +407,31 @@
         set_choice_numbers();
     });
 
+    let $button = $('#rsvp_submit');
+
+    $button.on('click', function () {
+        var $this = $(this);
+        if ($this.hasClass('active') || $this.hasClass('success')) {
+            return false;
+        }
+        $this.addClass('active');
+
+                setTimeout(() => {
+                    console.log('loader added')
+                    $this.addClass('loader');
+                }, 125);
+
+/*
+                setTimeout(() => {
+                    $this.removeClass('loader active');
+                    $this.val('Success');
+                    $this.addClass('success animated pulse');
+                }, 1600);
+
+                 */
+    });
+
+
     $('#rsvp').submit(function (e) {
         e.preventDefault();
         let name = false;
@@ -337,6 +439,7 @@
         let attendees = false;
         let food = false;
         let total = 0;
+        let $subButton = $('#rsvp_submit');
 
         $.each(inputs, function (index, val) {
             total += parseInt($(val).val(), 10);
@@ -391,13 +494,30 @@
                 data: form.serialize(),
                 success: function (resp) {
                     if (resp.message === 'success') {
-                         $('#field_error')
-                             .html('Your RSVP has been submitted. Thank you!')
+                        $('#field_error')
+                            .html('Your RSVP has been submitted. Thank you!')
                             .addClass('error_text');
-                         $('#rsvp_submit').val('Thank You!').prop('disabled', true);
+                        $('#rsvp_submit').val('Thank You!').prop('disabled', true);
+
+
+                        $subButton.removeClass('loader active');
+                        $subButton.val('Success');
+                        $subButton.addClass('success animated pulse');
+
                     }
                 }
             })
+
+        } else {
+            setTimeout(() => {
+                $subButton.removeClass('loader active');
+                $subButton.val('Oh no!');
+                $subButton.addClass('error animated pulse');
+                setTimeout(() => {
+                    $subButton.removeClass('error');
+                    $subButton.val('RSVP');
+                }, 2000)
+            }, 2000);
 
         }
     });
