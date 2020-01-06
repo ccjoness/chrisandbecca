@@ -242,7 +242,8 @@
                             </div>
                         </div>
                         <ul class="actions">
-                            <li><input type="submit" value="Send Message" class="button primary"/></li>
+{#                            <li><input type="submit" value="Send Message" class="button primary"/></li>#}
+                            <li><button class="g-recaptcha" data-sitekey="6LcvncwUAAAAADal6j2WUW7DA5aFU-UTCjrjLban" data-callback="captchaSubmit">Submit</button></li>
                         </ul>
                     </form>
                 </div>
@@ -270,6 +271,7 @@
 <script src="{% static 'js/browser.min.js' %}"></script>
 <script src="{% static 'js/breakpoints.min.js' %}"></script>
 <script src="{% static 'js/main.js' %}"></script>
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
 <script type="text/javascript">
     function getCookie(name) {
@@ -403,6 +405,10 @@
 
         }
     });
+
+    function captchaSubmit(data) {
+        document.getElementById("contactForm").submit();
+    }
 </script>
 </body>
 </html>
