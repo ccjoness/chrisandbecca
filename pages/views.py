@@ -61,7 +61,7 @@ def contact_view(request):
             subject='New Message from ChrisAndBecca.com',
             body=contact.message,
             from_email='mail@chrisandbecca.com',
-            to=['chris.charles.jones@gmail.com'],
+            to=['chris.charles.jones@gmail.com', 'beccabeddingfield@gmail.com'],
             reply_to=[contact.email],
             headers={'Content-Type': 'text/plain'},
         )
