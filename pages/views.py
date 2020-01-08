@@ -1,8 +1,11 @@
-from django.shortcuts import render, HttpResponseRedirect, reverse
-from django.http import JsonResponse
-from pages.models import GalleryImage, RSVP, Contact
+from django.contrib.auth.decorators import login_required
 from django.core.mail import EmailMessage
+from django.db.models import Sum
+from django.http import JsonResponse
+from django.shortcuts import render, HttpResponseRedirect, reverse
 from django.template.loader import render_to_string
+
+from pages.models import GalleryImage, RSVP, Contact
 
 
 def home(request):
@@ -65,3 +68,21 @@ def contact_view(request):
         email.send()
 
     return HttpResponseRedirect(reverse('home'))
+
+
+@login_required
+def dashboard_view(request):
+    all_rsvp = RSVP.objects.all()
+    sum_attendees = RSVP.objects.aggregate(Sum('attendees'))
+    sum_pork = RSVP.objects.aggregate(Sum('pork'))
+    sum_chicken = RSVP.objects.aggregate(Sum('chicken'))
+    sum_vegetarian = RSVP.objects.aggregate(Sum('vegetarian'))
+    contacts = Contact.objects.all()
+    return render(request, 'pages/dashboard.html', {
+        'rspvs': all_rsvp,
+        'sum_attendees': sum_attendees.get('attendees__sum'),
+        'sum_pork': sum_pork.get('pork__sum'),
+        'sum_chicken': sum_chicken.get('chicken__sum'),
+        'sum_vegetarian': sum_vegetarian.get('vegetarian__sum'),
+        'contacts': contacts
+    })

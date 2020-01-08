@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chris and Becca</title>
+    <style>
+
+        body:after {
+            pointer-events: none;
+            content: '';
+            display: block;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background-attachment: fixed;
+            background-color: #e1e6e1;
+            background-image: url("/static/images/overlay.png"), url("/static/images/bg.jpg");
+            background-repeat: repeat, repeat-x;
+            background-size: 128px 128px, cover;
+        }
+
+        .tg {
+            border-collapse: collapse;
+            border-spacing: 0;
+            border-color: #aabcfe;
+            width: 97%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .tg td {
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            padding: 10px 5px;
+            border-style: solid;
+            border-width: 1px;
+            overflow: hidden;
+            word-break: normal;
+            border-color: #aabcfe;
+            color: #669;
+            background-color: #e8edff;
+        }
+
+        .tg th {
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            font-weight: normal;
+            padding: 10px 5px;
+            border-style: solid;
+            border-width: 1px;
+            overflow: hidden;
+            word-break: normal;
+            border-color: #aabcfe;
+            color: #039;
+            background-color: #b9c9fe;
+        }
+
+        .tg .tg-lboi {
+            border-color: inherit;
+            text-align: left;
+            vertical-align: middle
+        }
+
+        .tg .tg-0lax {
+            text-align: left;
+            vertical-align: top
+        }
+
+        #main {
+            background-color: #726193;
+            background-image: url(/static/images/overlay.png), linear-gradient(45deg, rgba(114, 97, 147, 0.25) 25%, rgba(227, 123, 124, 0.25) 50%, rgba(255, 228, 180, 0.25));
+            width: 94%;
+            margin-top: 2em;
+            margin-right: auto;
+            margin-left: auto;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .item {
+            flex-basis: 50%
+        }
+
+        .box {
+            background-color: #ffffff;
+            border-radius: 25px;
+            margin: 2%;
+            padding: 2%;
+        }
+    </style>
+</head>
+<body>
+<div id="main">
+    <div class="item">
+        <div style="text-align: center">
+            <h1>RSVP's</h1>
+            <hr>
+        </div>
+        <table class="tg">
+            <tr>
+                <th class="tg-lboi">Name</th>
+                <th class="tg-lboi">Email</th>
+                <th class="tg-lboi">Attendees</th>
+                <th class="tg-0lax">Pork</th>
+                <th class="tg-0lax">Chicken</th>
+                <th class="tg-0lax">Vegetarian</th>
+            </tr>
+            {% for rs in rspvs %}
+                <tr>
+                    <td>{{ rs.name }}</td>
+                    <td>{{ rs.email }}</td>
+                    <td>{{ rs.attendees }}</td>
+                    <td>{{ rs.pork }}</td>
+                    <td>{{ rs.chicken }}</td>
+                    <td>{{ rs.vegetarian }}</td>
+                </tr>
+            {% endfor %}
+            <tr>
+                <th class="tg-lboi"></th>
+                <th class="tg-lboi"></th>
+                <th class="tg-lboi">{{ sum_attendees }}</th>
+                <th class="tg-0lax">{{ sum_pork }}</th>
+                <th class="tg-0lax">{{ sum_chicken }}</th>
+                <th class="tg-0lax">{{ sum_vegetarian }}</th>
+            </tr>
+        </table>
+    </div>
+    <div class="item">
+        <div style="text-align: center">
+            <h1>Messages</h1>
+            <hr>
+        </div>
+        {% for c in contacts %}
+            <div class="box">
+                <div>
+                    {{ c.name }}<br>
+                    {{ c.email }}<br>
+                    {{ c.timestamp }}<br>
+                    <hr>
+                </div>
+                <div class="message">
+                    {{ c.message }}
+                </div>
+
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+</body>
+</html>

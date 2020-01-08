@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from pages.views import home, upload_photos, rsvp_view, contact_view
+from pages.views import home, upload_photos, rsvp_view, contact_view, dashboard_view
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -25,4 +25,5 @@ urlpatterns = [
     path('upload_photos/', upload_photos, name='upload_photos'),
     path('rsvp/', rsvp_view, name='rsvp_view'),
     path('contact/', contact_view, name='contact_view'),
+    path('dashboard/', dashboard_view, name='dashboard_view'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
