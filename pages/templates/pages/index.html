@@ -199,7 +199,32 @@
         </section>
 
         <!-- Panel -->
-        <section class="panel color1">
+        <section class="panel color1 medium">
+            <div class="inner">
+                <div class="span-9">
+                    <h2 class="major">Travel Info</h2>
+                    The closest airport to Salem is <a href="https://www.flypdx.com/">PDX International Airport</a> in Portland. Driving directly will take about an hour. There are a few different ways to get down to salem.
+                    <ol>
+                        <li>Tram and a bus - 2 hours 18 minutes. $14 to $20. <a href="https://www.rome2rio.com/map/Portland-Airport-PDX/Salem-OR-USA">More Info...</a></li>
+                        <li>Tram and a train - 2 hours 46 minutes. $26 to $38. <a href="https://www.rome2rio.com/map/Portland-Airport-PDX/Salem-OR-USA#r/Tram-train">More Info...</a></li>
+                        <li>Bus - 2 hours 48 minutes. 26 to 32. <a href="https://www.rome2rio.com/map/Portland-Airport-PDX/Salem-OR-USA#r/Bus">More Info...</a></li>
+                        <li>Drive - 1 hour 7 minutes. Car rental + gas. <a href="https://www.rome2rio.com/map/Portland-Airport-PDX/Salem-OR-USA#r/Bus">More Info...</a></li>
+                        <li>Airport Shuttle - 1 hour 20 minutes. $33 per person. <a href="https://groometransportation.com/portland-airport/salem/">More Info...</a></li>
+                    </ol>
+
+                </div>
+                <div class="span-9">
+                    <h2 class="major">Registry</h2>
+                    <p>We both value your presence and/or love and best wishes on our wedding day. Please do not feel obligated to give us a gift!</p>
+                    <p> If you want to get us anything we are registered on <a href="https://www.amazon.com/wedding/rebecca-beddingfield-chris-jones-salem-april-2020/registry/2EPZNQZVROTEP">Amazon</a>.
+                        <br>
+                        <a href="https://www.amazon.com/wedding/rebecca-beddingfield-chris-jones-salem-april-2020/registry/2EPZNQZVROTEP">Chris and Becca's wedding registry</a></p>
+                </div>
+            </div>
+
+        </section>
+
+        <section class="panel color4">
             <div class="inner columns aligned">
                 <div class="span-1-75">
                     <h2 class="major">How we met</h2>
@@ -416,19 +441,9 @@
         }
         $this.addClass('active');
 
-                setTimeout(() => {
-                    console.log('loader added')
-                    $this.addClass('loader');
-                }, 125);
-
-/*
-                setTimeout(() => {
-                    $this.removeClass('loader active');
-                    $this.val('Success');
-                    $this.addClass('success animated pulse');
-                }, 1600);
-
-                 */
+        setTimeout(() => {
+            $this.addClass('loader');
+        }, 125);
     });
 
 
