@@ -10,7 +10,6 @@ from pages.models import GalleryImage, RSVP, Contact
 
 def home(request):
     images = GalleryImage.objects.all()
-    print(images)
     return render(request, 'pages/index.html', {'images': images})
 
 
