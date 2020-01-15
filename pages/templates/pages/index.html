@@ -86,6 +86,10 @@
                 transform: rotateZ(360deg);
             }
         }
+
+        .mainLink {
+            top: 2px;
+        }
     </style>
     <noscript>
         <link rel="stylesheet" href="{% static 'css/noscript.css' %}"/>
@@ -105,10 +109,14 @@
                 <h1 class="major">Chris & Becca<br/>
                     Get Married!</h1>
                 <p>Becca Beddingfield and Chris Jones are getting married! We are excited share this day with you. </p>
-                {#                <p>Click next for more information.</p>#}
-                {#                <ul class="actions">#}
-                {#                    <li><a href="#information" class="button primary color1 circle icon solid fa-angle-right">Next</a></li>#}
-                {#                </ul>#}
+                <ul class="actions">
+                    <li><a href="#rsvp_section">RSVP <i class="mainLink icon solid fa-angle-right"></i></a>
+                    <li><a href="#travel_info_section">Travel Info <i class="mainLink icon solid fa-angle-right"></i></a>
+                    <li><a href="#hotel_reservation_section">Hotel Reservations <i class="mainLink icon solid fa-angle-right"></i></a>
+                    <li><a href="#registry_section">Registry <i class="mainLink icon solid fa-angle-right"></i></a>
+                    <li><a href="#contact_section">Contact <i class="mainLink icon solid fa-angle-right"></i></a>
+                    </li>
+                </ul>
             </div>
             <div class="image filtered span-2-75" data-position="25% 25%">
                 <img src="{% static 'images/chris_becca001.jpg' %}"/>
@@ -116,7 +124,7 @@
         </section>
 
         <!-- Panel -->
-        <section class="panel color1">
+        <section class="panel color1" id="rsvp_section">
             <div class="inner columns aligned">
                 <div class="span-2-75 sp">
                     <h2 class="major">RSVP</h2>
@@ -199,7 +207,7 @@
         </section>
 
         <!-- Panel -->
-        <section class="panel color1 medium">
+        <section class="panel color1 medium" id="travel_info_section">
             <div class="inner">
                 <div class="span-9">
                     <h2 class="major">Travel Info</h2>
@@ -227,7 +235,28 @@
             </div>
 
         </section>
-        <section class="panel color2 medium">
+
+
+        <section class="panel color2 medium" id="hotel_reservation_section">
+            <div class="inner">
+                <div class="span-9">
+                    <h2 class="major">Hotel Reservations</h2>
+                    We are currently speaking with hotels in the Salem area to reserve blocks of rooms. Right now we have discounted rooms at the following:
+                    <ol>
+                        <li>The Grand Hotel in Salem - Rates are for two adults. Additional guests over 18 are $20/night. Reservations can be made at (503) 540-7800. Reservations must be made by February 19 2020. </li>
+                        <ul>
+                            <li>Deluxe King - $159/night</li>
+                            <li>Deluxe Double Queen - $169/night</li>
+                        </ul>
+                    </ol>
+
+                </div>
+            </div>
+
+        </section>
+
+
+        <section class="panel color1 medium" id="registry_section">
             <div class="inner">
                 <div class="span-9">
                     <h2 class="major">Registry</h2>
@@ -328,7 +357,7 @@
         </section>
 
         <!-- Panel -->
-        <section class="panel color4-alt">
+        <section class="panel color4-alt" id="contact_section">
             <div class="intro color4">
                 <h2 class="major">Contact</h2>
                 <p>If you have any questions you can contact us here.</p>
