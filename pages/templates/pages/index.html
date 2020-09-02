@@ -355,41 +355,41 @@
         </section>
 
         <!-- Panel -->
-        <section class="panel color4-alt" id="contact_section">
-            <div class="intro color4">
-                <h2 class="major">Contact</h2>
-                <p>If you have any questions you can contact us here.</p>
-            </div>
-            <div class="inner columns divided">
-                <div class="span-3-25">
-                    <form id="contactForm" method="post" action="{% url 'contact_view' %}"
-                          enctype="multipart/form-data">
-                        {% csrf_token %}
-                        <div class="fields">
-                            <div class="field half">
-                                <label for="name">Name</label>
-                                <input type="text" name="name" id="name"/>
-                            </div>
-                            <div class="field half">
-                                <label for="email">Email</label>
-                                <input type="email" name="email" id="email"/>
-                            </div>
-                            <div class="field">
-                                <label for="message">Message</label>
-                                <textarea name="message" id="message" rows="4"></textarea>
-                            </div>
-                        </div>
-                        <ul class="actions">
+{#        <section class="panel color4-alt" id="contact_section">#}
+{#            <div class="intro color4">#}
+{#                <h2 class="major">Contact</h2>#}
+{#                <p>If you have any questions you can contact us here.</p>#}
+{#            </div>#}
+{#            <div class="inner columns divided">#}
+{#                <div class="span-3-25">#}
+{#                    <form id="contactForm" method="post" action="{% url 'contact_view' %}"#}
+{#                          enctype="multipart/form-data">#}
+{#                        {% csrf_token %}#}
+{#                        <div class="fields">#}
+{#                            <div class="field half">#}
+{#                                <label for="name">Name</label>#}
+{#                                <input type="text" name="name" id="name"/>#}
+{#                            </div>#}
+{#                            <div class="field half">#}
+{#                                <label for="email">Email</label>#}
+{#                                <input type="email" name="email" id="email"/>#}
+{#                            </div>#}
+{#                            <div class="field">#}
+{#                                <label for="message">Message</label>#}
+{#                                <textarea name="message" id="message" rows="4"></textarea>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                        <ul class="actions">#}
                             {#                            <li><input type="submit" value="Send Message" class="button primary"/></li>#}
-                            <li>
-                                <button class="g-recaptcha" data-sitekey="6LcvncwUAAAAADal6j2WUW7DA5aFU-UTCjrjLban"
-                                        data-callback="captchaSubmit">Submit
-                                </button>
-                            </li>
-                        </ul>
-                    </form>
-                </div>
-                <div class="span-1-5">
+{#                            <li>#}
+{#                                <button class="g-recaptcha" data-sitekey="6LcvncwUAAAAADal6j2WUW7DA5aFU-UTCjrjLban"#}
+{#                                        data-callback="captchaSubmit">Submit#}
+{#                                </button>#}
+{#                            </li>#}
+{#                        </ul>#}
+{#                    </form>#}
+{#                </div>#}
+{#                <div class="span-1-5">#}
                     {#										<ul class="contact-icons color1">#}
                     {#											<li class="icon brands fa-twitter"><a href="#">@untitled-tld</a></li>#}
                     {#											<li class="icon brands fa-facebook-f"><a href="#">facebook.com/untitled</a></li>#}
@@ -397,9 +397,9 @@
                     {#											<li class="icon brands fa-instagram"><a href="#">@untitled-tld</a></li>#}
                     {#											<li class="icon brands fa-medium-m"><a href="#">medium.com/untitled</a></li>#}
                     {#										</ul>#}
-                </div>
-            </div>
-        </section>
+{#                </div>#}
+{#            </div>#}
+{#        </section>#}
 
         <!-- Copyright -->
         <div class="copyright">&copy; Dark Matter Software.</div>
